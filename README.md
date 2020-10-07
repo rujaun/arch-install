@@ -376,8 +376,7 @@ Make it executable:
 chmod u+x ~/.config/plasma-workspace/env/ssh-agent.sh
 ```
 
-Set `SSH_ASKPASS` environment variable:
-Install `askpass.sh` to:
+Set `SSH_ASKPASS` environment variable - install `askpass.sh` to:
 ```
 ~/.config/plasma-workspace/env/askpass.sh
 ```
@@ -386,8 +385,7 @@ Make it executable:
 chmod u+x ~/.config/plasma-workspace/env/askpass.sh
 ```
 
-Create an ssh-add startup script:
-Install `ssh-add.sh` to:
+Create an ssh-add startup script - install `ssh-add.sh` to:
 ```
 ~/.config/autostart-scripts/ssh-add.sh
 ```
