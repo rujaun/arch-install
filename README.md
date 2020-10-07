@@ -342,7 +342,7 @@ cd r8125
 sudo sh ./autorun.sh
 ```
 ---
-###Install OpenSSH
+### Install OpenSSH
 ```
 sudo pacman -S openssh
 ```
@@ -352,11 +352,53 @@ Install xclip to copy SSH key from terminal:
 sudo pacman -S xclip
 ```
 
-
 ---
 ### Install development tools from the AUR
 Install sublime-text and Visual Studio Code
 ```
 yay -S visual-studio-code-bin
 yay -S sublime-text-3
+```
+---
+### Install credentials manager for ssh key passphrases
+Credit to [Feakster](https://forum.manjaro.org/u/Feakster) - [Source](https://archived.forum.manjaro.org/t/howto-use-kwallet-as-a-login-keychain-for-storing-ssh-key-passphrases-on-manjaro-arm-kde/115719)
+
+Install required packages:
+```
+sudo pacman -S kwallet ksshaskpass kwalletmanager kwallet-pam signon-kwallet-extension
+```
+Install `ssh-agent.sh` to:
+```
+~/.config/plasma-workspace/env/ssh-agent.sh
+```
+Make it executable:
+```
+chmod u+x ~/.config/plasma-workspace/env/ssh-agent.sh
+```
+
+Set `SSH_ASKPASS` environment variable:
+Install `askpass.sh` to:
+```
+~/.config/plasma-workspace/env/askpass.sh
+```
+Make it executable:
+```
+chmod u+x ~/.config/plasma-workspace/env/askpass.sh
+```
+
+Create an ssh-add startup script:
+Install `ssh-add.sh` to:
+```
+~/.config/autostart-scripts/ssh-add.sh
+```
+Make it executable:
+```
+chmod u+x ~/.config/autostart-scripts/ssh-add.sh
+```
+
+Logout or reboot
+
+Add your SSH key passphrases to kwallet:
+```
+ssh-add /path/to/key < /dev/null
 ```
