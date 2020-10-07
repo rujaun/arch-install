@@ -317,7 +317,7 @@ Enable SDDM:
 systemctl enable sddm.service
 ```
 ---
-### Fix screen tearing on plasma
+### Fix screen tearing on plasma (Nvidia)
 
 Under `System Settings` -> `Display and Monitor` -> `Compositor`:
 `Tearing prevention("vsync")` set to `Never`
