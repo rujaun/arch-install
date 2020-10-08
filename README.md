@@ -139,6 +139,11 @@ Set the timezone:
 ```
 timedatectl set-timezone Africa/Johannesburg
 ```
+OR
+```
+ln -sf /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime
+hwclock --systohc
+```
 
 Set the locale:
 ```
@@ -464,4 +469,9 @@ chmod 644 /usr/share/fonts/WinFonts/*
 Regenerate the fontconfig cache:
 ```
 fc-cache --force
+```
+
+Install additional fonts:
+```
+sudo pacman -S ttf-{bitstream-vera,liberation,freefont,dejavu} freetype2
 ```
