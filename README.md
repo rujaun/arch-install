@@ -462,7 +462,7 @@ sudo pacman -S go
 sudo pacman -S docker docker-compose
 ```
 
-Add user to the docker group (Requires restart):
+Add user to the `docker` group (Requires restart):
 ```
 sudo usermod --append --groups docker new_user
 ```
