@@ -475,7 +475,7 @@ Verify docker operation:
 docker info
 ```
 
-Test docker installation with arch linux image and return hello world:
+Test docker installation with Arch Linux image and return hello world:
 ```
 docker run -it --rm archlinux bash -c "echo hello world"
 ```
@@ -528,6 +528,7 @@ ssh-add /path/to/key < /dev/null
 **NB: Remember to set password for kwallet!**
 
 **Configuration for more than one key:**
+
 In `ssh-add.sh` replace:
 ```
 ssh-add -q < /dev/null
