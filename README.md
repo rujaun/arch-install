@@ -121,7 +121,7 @@ pacstrap /mnt base base-devel linux linux-firmware linux-headers vim
 ---
 ### Configure fresh install
 
-Generate fstab:
+Generate Fstab file:
 ```
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
@@ -140,7 +140,7 @@ Set the locale:
 ```
 vim /etc/locale.gen
 
-# Uncomment
+### Uncomment
 en_ZA.UTF-8
 ```
 
@@ -160,7 +160,7 @@ Configure hosts file:
 ```
 vim /etc/hosts
 
-# Add the following:
+### Add the following:
 127.0.0.1       localhost
 ::1             localhost
 127.0.1.1       archbox
@@ -173,7 +173,7 @@ passwd
 ---
 ### Install bootloader
 
-Install grub and efibootmgr:
+Install GRUB and efibootmgr:
 ```
 pacman -S grub efibootmgr
 ```
@@ -188,7 +188,7 @@ Mount the ESP partition:
 mount /dev/sda1 /boot/efi
 ```
 
-Install grub:
+Install GRUB:
 ```
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
 ```
@@ -198,17 +198,16 @@ Create GRUB config:
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-Install and enable NetworkManager:
+---
+### Install and enable NetworkManager
 ```
 pacman -S networkmanager
 systemctl enable NetworkManager.service
 ```
-
 Reboot:
 ```
 reboot
 ```
-
 ---
 ### Post Installation
 Install sudo:
@@ -222,12 +221,12 @@ useradd --create-home new_user
 passwd new_user
 ```
 
-Add the new user to Wheel group:
+Add the new user to wheel group:
 ```
 usermod --append --groups wheel new_user
 ```
 
-Edit sudoers file and give wheel sudo privileges:
+Edit sudoers file and give wheel group sudo privileges:
 ```
 visudo
 
@@ -260,7 +259,7 @@ Enable multilib for 32bit support:
 ```
 vim /etc/pacman.conf
 
-#Uncomment
+### Uncomment
 [multilib]
 Include = /etc/pacman.d/mirrorlist
 ```
@@ -270,7 +269,7 @@ Upgrade system after multilib enable:
 sudo pacman -Syu
 ```
 
-Install xorg and dkms:
+Install Xorg and dkms:
 ```
 sudo pacman -S xorg dkms 
 ```
@@ -339,6 +338,9 @@ UUID=f574a9e1-51d1-4483-b26e-dfbe858ac2c3        /mnt/sdb1      ext4        defa
 ```
 
 Reboot.
+```
+reboot
+```
 
 Change ownership of mount point to enable writing to disk:
 ```
@@ -376,14 +378,14 @@ sudo sh ./autorun.sh
 sudo pacman -S openssh
 ```
 
-Install xclip to copy SSH key from terminal:
+Install xclip:
 ```
 sudo pacman -S xclip
 ```
 
 ---
 ### Install development tools from the AUR
-Install sublime-text and Visual Studio Code
+Install Sublime Text 3 and Visual Studio Code
 ```
 yay -S visual-studio-code-bin
 yay -S sublime-text-3
@@ -429,6 +431,9 @@ Add your SSH key passphrases to kwallet:
 ```
 ssh-add /path/to/key < /dev/null
 ```
+
+**NB: Remember to set password for kwallet!**
+
 ---
 ### Install fonts
 
