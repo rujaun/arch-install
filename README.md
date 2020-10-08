@@ -387,6 +387,11 @@ cd r8125
 sudo sh ./autorun.sh
 ```
 ---
+### Install support for NTFS drives and partitions
+```
+sudo pacman -S ntfs-3g
+```
+---
 ### Install OpenSSH and add SSH key to ssh-agent
 ```
 sudo pacman -S openssh
