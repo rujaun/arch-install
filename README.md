@@ -403,6 +403,10 @@ Install Sublime Text 3 and Visual Studio Code
 ```
 yay -S visual-studio-code-bin
 yay -S sublime-text-3
+```
+
+Install powerline patched programming fonts:
+```
 yay -S awesome-terminal-fonts-git
 yay -S powerline-fonts-git
 yay -S nerd-fonts-source-code-pro
@@ -429,6 +433,61 @@ fi
 Source `.bashrc` to update with new PS1:
 ```
 source ~/.bashrc
+```
+
+Install Geany and Dbeaver:
+```
+sudo pacman -S geany dbeaver
+```
+
+Install Python 3:
+```
+sudo pacman -S python python-pip
+```
+
+Install Go:
+```
+sudo pacman -S go
+```
+---
+### Docker installation
+```
+sudo pacman -S docker docker-compose
+```
+
+Add user to the docker group (Requires restart):
+```
+sudo usermod --append --groups docker new_user
+```
+
+Start Docker service:
+```
+sudo systemctl start docker.service
+```
+
+Stop Docker service:
+```
+sudo systemctl stop docker.service
+```
+
+Get status of Docker service:
+```
+systemctl status docker
+```
+
+Verify docker operation:
+```
+docker info
+```
+
+Test docker installation with arch linux image and return hello world:
+```
+docker run -it --rm archlinux bash -c "echo hello world"
+```
+
+Install Kitematic:
+```
+yay -S kitematic
 ```
 
 ---
