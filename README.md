@@ -387,9 +387,21 @@ cd r8125
 sudo sh ./autorun.sh
 ```
 ---
-### Install OpenSSH
+### Install OpenSSH and add SSH key to ssh-agent
 ```
 sudo pacman -S openssh
+```
+Start ssh-agent:
+```
+eval "$(ssh-agent -s)"
+```
+Close down permissions on existing SSH key:
+```
+chmod 400 ~/.ssh/id_rsa
+```
+Add SSH key to ssh-agent:
+```
+ssh-add ~/.ssh/id_rsa
 ```
 ---
 ### Install development tools from the AUR (Arch User Repository)
