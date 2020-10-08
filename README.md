@@ -120,7 +120,7 @@ mount /dev/sda2 /mnt
 
 Install base system:
 ```
-pacstrap /mnt base base-devel linux linux-firmware linux-headers vim htop
+pacstrap /mnt base base-devel linux linux-firmware linux-headers util-linux vim htop
 ```
 ---
 ### Configure fresh install
