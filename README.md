@@ -111,7 +111,7 @@ Get best performant mirrors and update mirrorlist:
 reflector -c "ZA" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 ```
 ---
-### Installation
+### Arch Linux installation
 
 Mount root partition:
 ```
@@ -123,7 +123,7 @@ Install base system:
 pacstrap /mnt base base-devel linux linux-firmware linux-headers util-linux vim htop
 ```
 ---
-### Configure fresh install
+### Configure Arch Linux installation
 
 Generate Fstab file:
 ```
@@ -218,8 +218,7 @@ Reboot:
 reboot
 ```
 ---
-### Post Installation
-Install sudo:
+### Add local user account and install sudo
 ```
 pacman -S sudo
 ```
@@ -242,8 +241,8 @@ visudo
 ### Uncomment
 %wheel ALL=(ALL) ALL
 ```
-
-Enable TRIM support for SSDs:
+---
+### Enable TRIM scheduling for SSDs
 ```
 sudo systemctl enable fstrim.timer
 ```
@@ -303,7 +302,7 @@ For Intel:
 sudo pacman -S lib32-mesa vulkan-intel lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader
 ```
 ---
-### Install Plasma
+### Install Plasma desktop environment
 I don't install `kde-applications` to keep it as minimalistic as possible.
 
 ```
@@ -362,7 +361,7 @@ sudo chown new_user:wheel /mnt/sdb1
 ```
 
 ---
-### Fix screen tearing on plasma (Nvidia)
+### Fix screen tearing on Plasma (Nvidia)
 
 Under `System Settings` -> `Display and Monitor` -> `Compositor`:
 `Tearing prevention("vsync")` set to `Never`
@@ -391,14 +390,8 @@ sudo sh ./autorun.sh
 ```
 sudo pacman -S openssh
 ```
-
-Install xclip:
-```
-sudo pacman -S xclip
-```
-
 ---
-### Install development tools from the AUR
+### Install development tools from the AUR (Arch User Repository)
 Install Sublime Text 3 and Visual Studio Code
 ```
 yay -S visual-studio-code-bin
@@ -412,8 +405,8 @@ yay -S powerline-fonts-git
 yay -S nerd-fonts-source-code-pro
 yay -S nerd-fonts-fira-code
 ```
-
-Install powerline-go:
+---
+### Install powerline-go
 ```
 go get -u github.com/justjanne/powerline-go
 ```
@@ -434,7 +427,8 @@ Source `.bashrc` to update with new PS1:
 ```
 source ~/.bashrc
 ```
-
+---
+### Install development tools from the Arch repo
 Install Geany and Dbeaver:
 ```
 sudo pacman -S geany dbeaver
@@ -491,7 +485,7 @@ yay -S kitematic
 ```
 
 ---
-### Install credentials manager for ssh key passphrases
+### Install credential manager for SSH key passphrases
 Credit to [Feakster](https://forum.manjaro.org/u/Feakster) - [Source](https://archived.forum.manjaro.org/t/howto-use-kwallet-as-a-login-keychain-for-storing-ssh-key-passphrases-on-manjaro-arm-kde/115719)
 
 Install required packages:
@@ -534,7 +528,7 @@ ssh-add /path/to/key < /dev/null
 
 **NB: Remember to set password for kwallet!**
 
-Configuration for more than one key:
+**Configuration for more than one key:**
 In `ssh-add.sh` replace:
 ```
 ssh-add -q < /dev/null
