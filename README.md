@@ -317,6 +317,35 @@ Enable SDDM:
 systemctl enable sddm.service
 ```
 ---
+### Auto mount second disk with Fstab
+Create mount point directory:
+```
+sudo mkdir /mnt/sdb1
+```
+
+Retrieve UUID for the second disk:
+```
+lsblk -f
+```
+
+Edit Fstab file:
+```
+sudo vim /etc/fstab
+```
+
+Append the following with previously retrieved UUID:
+```
+UUID=f574a9e1-51d1-4483-b26e-dfbe858ac2c3        /mnt/sdb1      ext4        defaults        0 2
+```
+
+Reboot.
+
+Change ownership of mount point to enable writing to disk:
+```
+sudo chown new_user:wheel /mnt/sdb1
+```
+
+---
 ### Fix screen tearing on plasma (Nvidia)
 
 Under `System Settings` -> `Display and Monitor` -> `Compositor`:
