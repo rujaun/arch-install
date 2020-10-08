@@ -5,7 +5,11 @@ This guide was written for my own personal use.
 No liability for the contents of this documents can be accepted. Use the concepts, examples and other content at your own risk. There may be errors and inaccuracies, that may of course be damaging to your system. Although this is highly unlikely, you should proceed with caution. The author does not accept any responsibility for any damage incurred.
 
 ---
-
+## Update the system clock
+```
+timedatectl set-ntp true
+```
+---
 
 ## Partition disks
 
@@ -116,7 +120,7 @@ mount /dev/sda2 /mnt
 
 Install base system:
 ```
-pacstrap /mnt base base-devel linux linux-firmware linux-headers vim
+pacstrap /mnt base base-devel linux linux-firmware linux-headers vim htop
 ```
 ---
 ### Configure fresh install
@@ -232,6 +236,11 @@ visudo
 
 ### Uncomment
 %wheel ALL=(ALL) ALL
+```
+
+Enable TRIM support for SSDs:
+```
+sudo systemctl enable fstrim.timer
 ```
 ---
 ### Install AUR helper
