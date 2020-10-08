@@ -462,7 +462,7 @@ sudo pacman -S go
 sudo pacman -S docker docker-compose
 ```
 
-Add user to the `docker` group (Requires restart):
+Add user to the `docker` group (requires restart):
 ```
 sudo usermod --append --groups docker new_user
 ```
@@ -487,7 +487,7 @@ Verify Docker operation:
 docker info
 ```
 
-Test Docker installation with Arch Linux image and return hello world:
+Test Docker installation with Arch Linux image and return `hello world`:
 ```
 docker run -it --rm archlinux bash -c "echo hello world"
 ```
