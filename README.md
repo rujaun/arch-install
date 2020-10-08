@@ -348,7 +348,7 @@ sudo vim /etc/fstab
 
 Append the following with previously retrieved UUID:
 ```
-UUID=f574a9e1-51d1-4483-b26e-dfbe858ac2c3        /mnt/sdb1      ext4        defaults        0 2
+UUID=<your-uuid-here>        /mnt/sdb1      ext4        defaults        0 2
 ```
 
 Reboot.
