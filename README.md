@@ -429,3 +429,25 @@ Add your SSH key passphrases to kwallet:
 ```
 ssh-add /path/to/key < /dev/null
 ```
+---
+### Install fonts
+
+Make new fonts directory:
+```
+sudo mkdir /usr/share/fonts/WinFonts
+```
+
+Copy fonts to new directory:
+```
+cp ~/WinFonts/* /usr/share/fonts/WinFonts/
+```
+
+Change permissions on new fonts and directory:
+```
+chmod 644 /usr/share/fonts/WinFonts/*
+```
+
+Regenerate the fontconfig cache:
+```
+fc-cache --force
+```
