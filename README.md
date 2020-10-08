@@ -247,7 +247,7 @@ visudo
 sudo systemctl enable fstrim.timer
 ```
 ---
-### Install AUR helper
+### Install AUR (Arch User Repository) helper
 
 Install git and golang:
 ```
@@ -303,8 +303,9 @@ sudo pacman -S lib32-mesa vulkan-intel lib32-vulkan-intel vulkan-icd-loader lib3
 ```
 ---
 ### Install Plasma desktop environment
-I don't install `kde-applications` to keep it as minimalistic as possible.
+For a minimalistic Arch Linux installation, I don't install `kde-applications`.
 
+Install Plasma:
 ```
 sudo pacman -S plasma plasma-wayland-session
 ```
@@ -376,7 +377,7 @@ Make it executable:
 chmod +x ~/.config/autostart-scripts/force-composition-pipeline.sh
 ```
 
-Credit to [vitkin](https://unix.stackexchange.com/users/316930/vitkin) - [Source](https://unix.stackexchange.com/questions/510757/how-to-automatically-force-full-composition-pipeline-for-nvidia-gpu-driver#answer-550695)
+*Credit to: [vitkin](https://unix.stackexchange.com/users/316930/vitkin) - [Source](https://unix.stackexchange.com/questions/510757/how-to-automatically-force-full-composition-pipeline-for-nvidia-gpu-driver#answer-550695)*
 
 ---
 ### Install Realtek 8125B 2.5G LAN controller driver
@@ -486,8 +487,6 @@ yay -S kitematic
 
 ---
 ### Install credential manager for SSH key passphrases
-Credit to [Feakster](https://forum.manjaro.org/u/Feakster) - [Source](https://archived.forum.manjaro.org/t/howto-use-kwallet-as-a-login-keychain-for-storing-ssh-key-passphrases-on-manjaro-arm-kde/115719)
-
 Install required packages:
 ```
 sudo pacman -S kwallet ksshaskpass kwalletmanager kwallet-pam signon-kwallet-extension
@@ -545,6 +544,8 @@ ssh-add /path/to/key < /dev/null
 ```
 
 Reboot.
+
+*Credit to: [Feakster](https://forum.manjaro.org/u/Feakster) - [Source](https://archived.forum.manjaro.org/t/howto-use-kwallet-as-a-login-keychain-for-storing-ssh-key-passphrases-on-manjaro-arm-kde/115719)*
 
 ---
 ### Install fonts
