@@ -482,12 +482,12 @@ Get status of Docker service:
 systemctl status docker
 ```
 
-Verify docker operation:
+Verify Docker operation:
 ```
 docker info
 ```
 
-Test docker installation with Arch Linux image and return hello world:
+Test Docker installation with Arch Linux image and return hello world:
 ```
 docker run -it --rm archlinux bash -c "echo hello world"
 ```
