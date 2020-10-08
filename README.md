@@ -475,6 +475,24 @@ ssh-add /path/to/key < /dev/null
 
 **NB: Remember to set password for kwallet!**
 
+Configuration for more than one key:
+In `ssh-add.sh` replace:
+```
+ssh-add -q < /dev/null
+```
+with:
+```
+ssh-add -q ~/.ssh/key1 ~/.ssh/key2 ~/.ssh/key3 < /dev/null
+```
+Reboot.
+
+Run this for each of your SSH private keys to store their passphrases in `kwallet`:
+```
+ssh-add /path/to/key < /dev/null
+```
+
+Reboot.
+
 ---
 ### Install fonts
 
