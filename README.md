@@ -258,7 +258,7 @@ sudo pacman -S git go
 In home directory clone yay:
 ```
 cd ~/
-sudo git clone https://aur.archlinux.org/yay-git.git
+git clone https://aur.archlinux.org/yay-git.git
 cd yay-git
 ```
 
@@ -271,7 +271,7 @@ makepkg -si
 
 Enable multilib for 32bit support:
 ```
-vim /etc/pacman.conf
+sudo vim /etc/pacman.conf
 
 ### Uncomment
 [multilib]
@@ -322,12 +322,12 @@ sudo pacman -S bzip2 gzip lzip xz p7zip unrar zip unzip
 
 Install a few applications:
 ```
-sudo pacman -S konsole kate dolphin kcolorchooser krita okular vlc ark firefox chromium vlc
+sudo pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc ark firefox chromium
 ```
 
 Enable SDDM:
 ```
-systemctl enable sddm.service
+sudo systemctl enable sddm.service
 ```
 ---
 ### Auto mount second disk with Fstab
@@ -485,12 +485,12 @@ sudo mkdir /usr/share/fonts/WinFonts
 
 Copy fonts to new directory:
 ```
-cp ~/WinFonts/* /usr/share/fonts/WinFonts/
+sudo cp ~/WinFonts/* /usr/share/fonts/WinFonts/
 ```
 
 Change permissions on new fonts and directory:
 ```
-chmod 644 /usr/share/fonts/WinFonts/*
+sudo chmod 644 /usr/share/fonts/WinFonts/*
 ```
 
 Regenerate the fontconfig cache:
