@@ -403,7 +403,34 @@ Install Sublime Text 3 and Visual Studio Code
 ```
 yay -S visual-studio-code-bin
 yay -S sublime-text-3
+yay -S awesome-terminal-fonts-git
+yay -S powerline-fonts-git
+yay -S nerd-fonts-source-code-pro
+yay -S nerd-fonts-fira-code
 ```
+
+Install powerline-go:
+```
+go get -u github.com/justjanne/powerline-go
+```
+
+Add this to `.bashrc`:
+```
+GOPATH=$HOME/go
+
+function _update_ps1() {
+    PS1="$($GOPATH/bin/powerline-go -error $?)"
+}
+if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
+```
+
+Source `.bashrc` to update with new PS1:
+```
+source ~/.bashrc
+```
+
 ---
 ### Install credentials manager for ssh key passphrases
 Credit to [Feakster](https://forum.manjaro.org/u/Feakster) - [Source](https://archived.forum.manjaro.org/t/howto-use-kwallet-as-a-login-keychain-for-storing-ssh-key-passphrases-on-manjaro-arm-kde/115719)
@@ -469,9 +496,4 @@ chmod 644 /usr/share/fonts/WinFonts/*
 Regenerate the fontconfig cache:
 ```
 fc-cache --force
-```
-
-Install additional fonts:
-```
-sudo pacman -S ttf-{bitstream-vera,liberation,freefont,dejavu} freetype2
 ```
