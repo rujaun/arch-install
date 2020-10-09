@@ -322,7 +322,7 @@ sudo pacman -S bzip2 gzip lzip xz p7zip unrar zip unzip
 
 Install a few applications:
 ```
-sudo pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc ark kget transmission-qt firefox chromium
+sudo pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc ark uget transmission-qt firefox chromium
 ```
 
 Enable SDDM:
