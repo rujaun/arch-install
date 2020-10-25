@@ -389,9 +389,9 @@ cd r8125
 sudo sh ./autorun.sh
 ```
 ---
-### Install support for NTFS drives and partitions
+### Install support for NTFS and exfat drives / partitions
 ```
-sudo pacman -S ntfs-3g
+sudo pacman -S ntfs-3g exfat-utils
 ```
 ---
 ### Install OpenSSH and add SSH key to ssh-agent
