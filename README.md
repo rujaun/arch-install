@@ -591,3 +591,9 @@ Regenerate the fontconfig cache:
 ```
 fc-cache --force
 ```
+
+---
+### Install LibreOffice
+```
+sudo pacman -S libreoffice-fresh
+```
