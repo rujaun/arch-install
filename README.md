@@ -384,6 +384,7 @@ chmod +x ~/.config/autostart-scripts/force-composition-pipeline.sh
 ---
 ### Install Realtek 8125B 2.5G LAN controller driver
 **NB: This is not needed anymore as kernel 5.9 includes the driver**
+
 Build and install the Realtek driver:
 ```
 cd r8125
