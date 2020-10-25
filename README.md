@@ -8,6 +8,7 @@ No liability for the contents of this documents can be accepted. Use the concept
 ## Update the system clock
 ```
 timedatectl set-ntp true
+timedatectl set-local-rtc 1 --adjust-system-clock
 ```
 ---
 
@@ -143,6 +144,7 @@ OR
 ```
 ln -sf /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime
 hwclock --systohc
+timedatectl set-local-rtc 1 --adjust-system-clock
 ```
 
 Set the locale:
