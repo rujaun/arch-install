@@ -121,7 +121,7 @@ mount /dev/sda2 /mnt
 
 Install base system:
 ```
-pacstrap /mnt base base-devel linux linux-firmware linux-headers util-linux vim htop
+pacstrap /mnt base base-devel linux linux-firmware linux-headers util-linux amd-ucode vim htop
 ```
 ---
 ### Configure Arch Linux installation
