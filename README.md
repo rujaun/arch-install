@@ -597,3 +597,36 @@ fc-cache --force
 ```
 sudo pacman -S libreoffice-fresh
 ```
+
+---
+### Install xanmod linux kernel
+
+Install build dependencies:
+```
+sudo pacman -S xmlto inetutils bc cpio python-pytz python-babel python-docutils python-imagesize python-markupsafe python-jinja python-pygments python-snowballstemmer python-sphinx-alabaster-theme python-sphinxcontrib-applehelp python-sphinxcontrib-devhelp python-sphinxcontrib-htmlhelp python-sphinxcontrib-jsmath python-sphinxcontrib-qthelp python-sphinxcontrib-serializinghtml python-sphinx python-sphinx_rtd_theme gd netpbm gts gsfonts graphviz liblqr libraqm imagemagick
+```
+
+Import GPG keys:
+```
+gpg --keyserver pool.sks-keyservers.net --recv-keys ABAF11C65A2970B130ABE3C479BE3E4300411886
+gpg --keyserver pool.sks-keyservers.net --recv-keys 647F28654894E3BD457199BE38DBBDC86092693E
+
+```
+
+Install xanmod kernel and headers from AUR (Arch User Repositories):
+
+**NB: This is a kernel build so will take a while**
+
+```
+yay -S linux-xanmod linux-xanmod-headers
+```
+
+Update GRUB:
+```
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+Reboot:
+```
+reboot
+```
