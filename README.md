@@ -592,6 +592,11 @@ Regenerate the fontconfig cache:
 fc-cache --force
 ```
 
+Create font config - install `local.conf` to:
+```
+/etc/fonts/local.conf
+```
+
 ---
 ### Install LibreOffice
 ```
