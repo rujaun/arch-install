@@ -113,4 +113,4 @@ rm /mnt/chroot_install.sh
 
 echo -n "Unmounting root partition and reboot"
 umount -R /mnt
-systemctl reboot
+#systemctl reboot
