@@ -51,23 +51,23 @@ fi
 
 echo -n "Creating GPT partition table"
 
-parted -S "$DISK" mklabel gpt
+parted --script "$DISK" mklabel gpt
 
 echo -n "Creating UEFI Boot partition:"
-parted -s optimal "$DISK" mkpart "EFI system partition" fat32 2MiB 512MiB
-parted -s set 1 esp on
+parted --script "$DISK" mkpart "EFI system partition" fat32 2MiB 512MiB
+parted --script set 1 esp on
 
 
 if [ "$SWAP" = "Y" ]; then
 	echo -n "Creating SWAP partition:"
-	parted -s optimal "$DISK" mkpart "swap partition" linux-swap 514MiB 8706MiB
+	parted --script "$DISK" mkpart "swap partition" linux-swap 514MiB 8706MiB
 fi
 
 echo -n "Creating root partition:"
 if [ "$SWAP" = "Y" ]; then
-	parted -s optimal "$DISK" mkpart "root partition" ext4 8708MiB 100%
+	parted -script "$DISK" mkpart "root partition" ext4 8708MiB 100%
 else
-	parted -s optimal "$DISK" mkpart "root partition" ext4 514MiB 100%
+	parted -script "$DISK" mkpart "root partition" ext4 514MiB 100%
 fi
 
 # Format partitions:
