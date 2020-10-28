@@ -324,7 +324,7 @@ sudo pacman -S bzip2 gzip lzip xz p7zip unrar zip unzip
 
 Install a few applications:
 ```
-sudo pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc ark persepolis transmission-qt firefox chromium packagekit-qt5
+sudo pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc ark persepolis transmission-qt firefox chromium
 ```
 
 Enable SDDM:
@@ -465,6 +465,14 @@ Install Go:
 ```
 sudo pacman -S go
 ```
+
+---
+### Vim-plug installation
+```
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+
 ---
 ### Docker installation
 ```
@@ -601,6 +609,13 @@ Create font config - install `local.conf` to:
 ### Install LibreOffice
 ```
 sudo pacman -S libreoffice-fresh
+```
+
+---
+### Fix Plasma Discover repository loading
+Install / reinstall the following and restart:
+```
+sudo pacman -S packagekit packagekit-qt5 appstream appstream-qt
 ```
 
 ---
