@@ -91,6 +91,6 @@ echo -n "Removing chroot_install.sh"
 rm /mnt/chroot_install.sh
 
 echo -n "Unmounting root partition and reboot"
-umount -R /mnt
+umount -l /mnt
 
 read -p "Install finished - Press enter to continue..."

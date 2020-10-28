@@ -63,46 +63,46 @@ pacman -S networkmanager --noconfirm
 systemctl enable NetworkManager.service
 
 echo -n "Enabling TRIM scheduling for SSDs..."
-sudo systemctl enable fstrim.timer
+systemctl enable fstrim.timer
 
 echo -n "Installing Xorg and GPU drivers..."
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 pacman -Syu --noconfirm
 
 echo -n "Installing xorg and dkms..."
-sudo pacman -S xorg dkms --noconfirm
+pacman -S xorg dkms --noconfirm
 
 if [ "$GPU" = "AMD" ]; then
 	echo -n "Installing AMD GPU drivers"
-	sudo pacman -S lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader --noconfirm
+	pacman -S lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader --noconfirm
 fi
 
 if [ "$GPU" = "Intel" ]; then
 	echo -n "Installing Intel GPU drivers"
-	sudo pacman -S lib32-mesa vulkan-intel lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader --noconfirm
+	pacman -S lib32-mesa vulkan-intel lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader --noconfirm
 fi
 
 if [ "$GPU" = "Nvidia" ]; then
 	echo -n "Installing Nvidia GPU drivers"
-	sudo pacman -S nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader --noconfirm
+	pacman -S nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader --noconfirm
 fi
 
 echo -n "Installing Plasma desktop environment..."
-sudo pacman -S plasma plasma-wayland-session --noconfirm
-sudo pacman -S kdegraphics-thumbnailers kio-extras --noconfirm
-sudo pacman -S bzip2 gzip lzip xz p7zip unrar zip unzip --noconfirm
-sudo pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc ark persepolis transmission-qt firefox chromium ktouch --noconfirm
-sudo pacman -S packagekit packagekit-qt5 appstream appstream-qt --noconfirm
+pacman -S plasma plasma-wayland-session --noconfirm
+pacman -S kdegraphics-thumbnailers kio-extras --noconfirm
+pacman -S bzip2 gzip lzip xz p7zip unrar zip unzip --noconfirm
+pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc ark persepolis transmission-qt firefox chromium ktouch --noconfirm
+pacman -S packagekit packagekit-qt5 appstream appstream-qt --noconfirm
 
 echo -n "Installing vim-plug..."
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 echo -n "Installing python..."
-sudo pacman -S python python-pip --noconfirm
+pacman -S python python-pip --noconfirm
 
 echo -n "Installing support for NTFS and exfat drives / partitions..."
-sudo pacman -S ntfs-3g exfat-utils --noconfirm
+pacman -S ntfs-3g exfat-utils --noconfirm
 
 echo -n "Enabling SDDM..."
-sudo pacman -S ntfs-3g exfat-utils --noconfirm
+systemctl enable sddm.service
