@@ -116,4 +116,4 @@ umount -R /mnt
 
 read -p "Install finished - Press enter to continue..."
 
-systemctl reboot
+systemctl shutdown
