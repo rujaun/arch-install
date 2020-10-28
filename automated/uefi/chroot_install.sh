@@ -2,13 +2,26 @@
 
 DISK="$1"
 SWAP="$2"
-BOOT_PARTITION="$3"
-ROOT_PASSWORD="$4"
-USERNAME="$5"
-USER_PASSWORD="$6"
-HOST="$7"
-GPU="$8"
-CPU="$9"
+SWAP_SIZE="$3"
+BOOT_PARTITION="$4"
+ROOT_PASSWORD="$5"
+USERNAME="$6"
+USER_PASSWORD="$7"
+HOST="$8"
+GPU="$9"
+CPU="$10"
+
+if [ "$SWAP" = "Y" ]; then
+	echo -n "Creating SWAP file:"
+	cd /
+	dd if=/dev/zero of=swapfile bs=1M count="$SWAP_SIZE" status=progress
+	chmod 600 swapfile
+	mkswap swapfile
+	swapon swapfile
+	echo "/swapfile		none	swap defaults 0 0" >> /etc/fstab
+	touch /etc/sysctl.d/99-swappiness.conf
+	echo "vm.swappiness=10" >> /etc/sysctl.d/99-swappiness.conf
+fi
 
 echo -n "Setting timezone..."
 timedatectl set-timezone Africa/Johannesburg

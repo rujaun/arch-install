@@ -4,13 +4,13 @@ echo -n "Disk name:"
 
 read DISK
 
-echo -n "Do you require a swap partition? (Y/N)"
+echo -n "Do you require a swap file? (Y/N)"
 
 read SWAP
 SWAP_SIZE=0
 
 if [ "$SWAP" = "Y" ]; then
-	echo -n "SWAP size in G:"
+	echo -n "SWAP file size in MiB:"
 	read SWAP_SIZE
 fi
 
@@ -42,12 +42,6 @@ read CPU
 DISK="/dev/${DISK}"
 BOOT_PARTITION="${DISK}1"
 ROOT_PARTITION="${DISK}2"
-SWAP_PARTITION=""
-
-if [ "$SWAP" = "Y" ]; then
-	SWAP_PARTITION="${DISK}2"
-	ROOT_PARTITION="${DISK}3"
-fi
 
 echo -n "Creating GPT partition table:\n"
 
@@ -57,27 +51,12 @@ echo -n "Creating UEFI Boot partition:\n"
 parted --script "$DISK" mkpart "efi" fat32 2MiB 512MiB
 parted --script /dev/sda set 1 esp on
 
-
-if [ "$SWAP" = "Y" ]; then
-	echo -n "Creating SWAP partition:\n"
-	parted --script "$DISK" mkpart "swap" linux-swap 514MiB "$(((($SWAP_SIZE*1024))+514))"MiB
-fi
-
 echo -n "Creating root partition:\n"
-if [ "$SWAP" = "Y" ]; then
-	parted --script "$DISK" mkpart "root" ext4 "$(((($swap*1024))+514+2))"MiB 100%
-else
-	parted --script "$DISK" mkpart "root" ext4 514MiB 100%
-fi
+parted --script "$DISK" mkpart "root" ext4 514MiB 100%
 
 # Format partitions:
 echo -n "Formatting EFI partition:"
 mkfs.fat -F32 "${BOOT_PARTITION}"
-
-if [ "$SWAP" = "Y" ]; then
-	echo -n "Making SWAP partition..."
-	mkswap -f "${SWAP_PARTITION}"
-fi
 
 echo -n "Formatting root partition"
 mkfs.ext4 -F "${ROOT_PARTITION}"
@@ -106,7 +85,7 @@ echo -n "Preparing chroot script handoff"
 cp ./chroot_install.sh /mnt/chroot_install.sh
 
 echo -n "Entering chroot"
-arch-chroot /mnt sh ./chroot_install.sh "$DISK" "$SWAP" "$BOOT_PARTITION" "$ROOT_PASSWORD" "$USERNAME" "$USER_PASSWORD" "$HOST" "$GPU" "$CPU"
+arch-chroot /mnt sh ./chroot_install.sh "$DISK" "$SWAP" "$SWAP_SIZE" "$BOOT_PARTITION" "$ROOT_PASSWORD" "$USERNAME" "$USER_PASSWORD" "$HOST" "$GPU" "$CPU"
 
 echo -n "Removing chroot_install.sh"
 rm /mnt/chroot_install.sh
