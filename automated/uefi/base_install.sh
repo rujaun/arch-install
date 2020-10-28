@@ -83,30 +83,30 @@ echo -n "Formatting root partition"
 mkfs.ext4 "${ROOT_PARTITION}"
 
 # Update repos
-#pacman -Syy --noconfirm
+pacman -Syy --noconfirm
 
-#echo -n "Installing and running reflector to update mirrors..."
-#pacman -S reflector --noconfirm
-#reflector -c "ZA" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
+echo -n "Installing and running reflector to update mirrors..."
+pacman -S reflector --noconfirm
+reflector -c "ZA" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 
 # Mount root partition
-#echo -n "Mounting root partition..."
-#mount "${ROOT_PARTITION}" /mnt
+echo -n "Mounting root partition..."
+mount "${ROOT_PARTITION}" /mnt
 
 # Install base system
-#echo -n "Installing base system..."
-#pacstrap /mnt base base-devel linux linux-firmware linux-headers util-linux amd-ucode vim
+echo -n "Installing base system..."
+pacstrap /mnt base base-devel linux linux-firmware linux-headers util-linux amd-ucode vim
 
 # Generate fstab
-#echo -n "Generating fstab"
-#genfstab -U /mnt >> /mnt/etc/fstab
+echo -n "Generating fstab"
+genfstab -U /mnt >> /mnt/etc/fstab
 
 #Preparing chroot script handoff
-#echo -n "Preparing chroot script handoff"
-#cp ./chroot_install.sh /mnt
+echo -n "Preparing chroot script handoff"
+cp ./chroot_install.sh /mnt
 
-#echo -n "Entering chroot"
-#arch-chroot /mnt ./chroot_install.sh "$DISK" "$SWAP" "$BOOT_PARTITION" "$ROOT_PASSWORD" "$USERNAME" "$USER_PASSWORD" "$HOST" "$GPU" "$CPU"
+echo -n "Entering chroot"
+arch-chroot /mnt ./chroot_install.sh "$DISK" "$SWAP" "$BOOT_PARTITION" "$ROOT_PASSWORD" "$USERNAME" "$USER_PASSWORD" "$HOST" "$GPU" "$CPU"
 
 #echo -n "Removing chroot_install.sh"
 #rm /mnt/chroot_install.sh
