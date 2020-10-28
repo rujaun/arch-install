@@ -116,3 +116,13 @@ pacman -S ntfs-3g exfat-utils --noconfirm
 
 echo -n "Enabling SDDM..."
 systemctl enable sddm.service
+
+if [ "$CPU" = "AMD" ]; then
+	echo -n "Installing AMD CPU microcode"
+	pacman -S amd-ucode --noconfirm
+fi
+
+if [ "$CPU" = "Intel" ]; then
+	echo -n "Installing Intel CPU microcode"
+	pacman -S intel-ucode --noconfirm
+fi
