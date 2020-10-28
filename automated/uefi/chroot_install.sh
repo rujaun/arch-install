@@ -78,7 +78,7 @@ echo -n "Installing Plasma desktop environment..."
 sudo pacman -S plasma plasma-wayland-session --noconfirm
 sudo pacman -S kdegraphics-thumbnailers kio-extras --noconfirm
 sudo pacman -S bzip2 gzip lzip xz p7zip unrar zip unzip --noconfirm
-sudo pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc ark persepolis transmission-qt firefox chromium ktouch
+sudo pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc ark persepolis transmission-qt firefox chromium ktouch --noconfirm
 sudo pacman -S packagekit packagekit-qt5 appstream appstream-qt --noconfirm
 
 echo -n "Installing vim-plug..."

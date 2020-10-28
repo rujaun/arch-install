@@ -108,9 +108,12 @@ cp ./chroot_install.sh /mnt/chroot_install.sh
 echo -n "Entering chroot"
 arch-chroot /mnt sh ./chroot_install.sh "$DISK" "$SWAP" "$BOOT_PARTITION" "$ROOT_PASSWORD" "$USERNAME" "$USER_PASSWORD" "$HOST" "$GPU" "$CPU"
 
-#echo -n "Removing chroot_install.sh"
-#rm /mnt/chroot_install.sh
+echo -n "Removing chroot_install.sh"
+rm /mnt/chroot_install.sh
 
-#echo -n "Unmounting root partition and reboot"
-#umount -R /mnt
-#systemctl reboot
+echo -n "Unmounting root partition and reboot"
+umount -R /mnt
+
+read -p "Install finished - Press enter to continue..."
+
+systemctl reboot
