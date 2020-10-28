@@ -94,16 +94,16 @@ echo -n "Mounting root partition..."
 mount "${ROOT_PARTITION}" /mnt
 
 # Install base system
-echo -n "Installing base system..."
-pacstrap /mnt base base-devel linux linux-firmware linux-headers util-linux amd-ucode vim
+#echo -n "Installing base system..."
+#pacstrap /mnt base base-devel linux linux-firmware linux-headers util-linux amd-ucode vim
 
 # Generate fstab
-echo -n "Generating fstab"
-genfstab -U /mnt >> /mnt/etc/fstab
+#echo -n "Generating fstab"
+#genfstab -U /mnt >> /mnt/etc/fstab
 
 #Preparing chroot script handoff
-echo -n "Preparing chroot script handoff"
-cp ./chroot_install.sh /mnt
+#echo -n "Preparing chroot script handoff"
+#cp ./chroot_install.sh /mnt
 
 #echo -n "Entering chroot"
 #arch-chroot /mnt ./chroot_install.sh "$DISK" "$SWAP" "$BOOT_PARTITION" "$ROOT_PASSWORD" "$USERNAME" "$USER_PASSWORD" "$HOST" "$GPU" "$CPU"
