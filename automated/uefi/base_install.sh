@@ -38,28 +38,52 @@ echo -n "CPU (AMD | Intel):"
 
 read CPU
 
-# Create Partitions:
-DISK="/dev/${DISK}"
-BOOT_PARTITION="${DISK}1"
-ROOT_PARTITION="${DISK}2"
+echo -n "EFI or BIOS:"
+read BOOT_METHOD
 
-echo -n "Creating GPT partition table:\n"
+if [ "$BOOT_METHOD" = "EFI" ]; then
+	# Create UEFI Partitions:
+	DISK="/dev/${DISK}"
+	BOOT_PARTITION="${DISK}1"
+	ROOT_PARTITION="${DISK}2"
 
-parted --script "$DISK" mklabel gpt
+	echo -n "Creating GPT partition table:\n"
 
-echo -n "Creating UEFI Boot partition:\n"
-parted --script "$DISK" mkpart "efi" fat32 2MiB 512MiB
-parted --script /dev/sda set 1 esp on
+	parted --script "$DISK" mklabel gpt
 
-echo -n "Creating root partition:\n"
-parted --script "$DISK" mkpart "root" ext4 514MiB 100%
+	echo -n "Creating UEFI Boot partition:\n"
+	parted --script "$DISK" mkpart "efi" fat32 2MiB 512MiB
+	parted --script /dev/sda set 1 esp on
 
-# Format partitions:
-echo -n "Formatting EFI partition:"
-mkfs.fat -F32 "${BOOT_PARTITION}"
+	echo -n "Creating root partition:\n"
+	parted --script "$DISK" mkpart "root" ext4 514MiB 100%
 
-echo -n "Formatting root partition"
-mkfs.ext4 -F "${ROOT_PARTITION}"
+	# Format partitions:
+	echo -n "Formatting EFI partition:"
+	mkfs.fat -F32 "${BOOT_PARTITION}"
+
+	echo -n "Formatting root partition"
+	mkfs.ext4 -F "${ROOT_PARTITION}"
+fi
+
+if [ "$BOOT_METHOD" = "BIOS" ]; then
+	# Create MBR Partitions:
+	DISK="/dev/${DISK}"
+	ROOT_PARTITION="${DISK}1"
+
+	echo -n "Creating MBR partition table:\n"
+
+	parted --script "$DISK" mklabel msdos
+
+	echo -n "Creating root partition:\n"
+	parted --script "$DISK" mkpart primary ext4 2MiB 100%
+
+	parted --script /dev/sda set 1 boot on
+
+	# Format partitions:
+	echo -n "Formatting root partition"
+	mkfs.ext4 -F "${ROOT_PARTITION}"
+fi
 
 # Update repos
 pacman -Syy --noconfirm
@@ -85,7 +109,7 @@ echo -n "Preparing chroot script handoff"
 cp ./chroot_install.sh /mnt/chroot_install.sh
 
 echo -n "Entering chroot"
-arch-chroot /mnt sh ./chroot_install.sh "$DISK" "$SWAP" "$SWAP_SIZE" "$BOOT_PARTITION" "$ROOT_PASSWORD" "$USERNAME" "$USER_PASSWORD" "$HOST" "$GPU" "$CPU"
+arch-chroot /mnt sh ./chroot_install.sh "$DISK" "$SWAP" "$SWAP_SIZE" "$BOOT_PARTITION" "$ROOT_PASSWORD" "$USERNAME" "$USER_PASSWORD" "$HOST" "$GPU" "$CPU" "$BOOT_METHOD"
 
 echo -n "Removing chroot_install.sh"
 rm /mnt/chroot_install.sh

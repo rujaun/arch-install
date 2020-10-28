@@ -10,6 +10,7 @@ USER_PASSWORD="$7"
 HOST="$8"
 GPU="$9"
 CPU="$10"
+BOOT_METHOD="$11"
 
 if [ "$SWAP" = "Y" ]; then
 	echo -n "Creating SWAP file:"
@@ -44,12 +45,22 @@ echo "127.0.1.1			$HOST" >> /etc/hosts
 echo -n "Setting root password..."
 echo "root:$ROOT_PASSWORD" | chpasswd
 
-echo -n "Install GRUB and configuring bootloader..."
-pacman -S grub efibootmgr --noconfirm
-mkdir /boot/efi
-mount "$BOOT_PARTITION" /boot/efi
-grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
-grub-mkconfig -o /boot/grub/grub.cfg
+if [ "$BOOT_METHOD" = "EFI" ]; then
+	echo -n "Install GRUB-UEFI and configuring bootloader..."
+	pacman -S grub efibootmgr --noconfirm
+	mkdir /boot/efi
+	mount "$BOOT_PARTITION" /boot/efi
+	grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
+	grub-mkconfig -o /boot/grub/grub.cfg
+fi
+
+
+if [ "$BOOT_METHOD" = "BIOS" ]; then
+	echo -n "Install GRUB-BIOS and configuring bootloader..."
+	pacman -S grub
+	grub-install --target=i386-pc --recheck "$DISK"
+	grub-mkconfig -o /boot/grub/grub.cfg
+fi
 
 echo -n "Setting up local user account and installing sudo..."
 pacman -S sudo --noconfirm
