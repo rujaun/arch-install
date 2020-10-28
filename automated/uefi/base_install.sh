@@ -60,19 +60,19 @@ parted --script /dev/sda set 1 esp on
 
 if [ "$SWAP" = "Y" ]; then
 	echo -n "Creating SWAP partition:\n"
-	parted --script "$DISK" mkpart "swap" linux-swap 514MiB 8706MiB
+	parted --script "$DISK" mkpart "swap" linux-swap 514MiB "$(((($SWAP_SIZE*1024))+514))"MiB
 fi
 
 echo -n "Creating root partition:\n"
 if [ "$SWAP" = "Y" ]; then
-	parted --script "$DISK" mkpart "root" ext4 8708MiB 100%
+	parted --script "$DISK" mkpart "root" ext4 "$(((($swap*1024))+514+2))"MiB 100%
 else
 	parted --script "$DISK" mkpart "root" ext4 514MiB 100%
 fi
 
 # Format partitions:
 echo -n "Formatting EFI partition:"
-mkfs.fat -F -F32 "${BOOT_PARTITION}"
+mkfs.fat -F32 "${BOOT_PARTITION}"
 
 if [ "$SWAP" = "Y" ]; then
 	echo -n "Making SWAP partition..."
