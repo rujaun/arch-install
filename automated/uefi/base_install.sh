@@ -55,7 +55,7 @@ parted --script "$DISK" mklabel gpt
 
 echo -n "Creating UEFI Boot partition:\n"
 parted --script "$DISK" mkpart "efi" fat32 2MiB 512MiB
-parted --script set 1 esp on
+parted --script /dev/sda set 1 esp on
 
 
 if [ "$SWAP" = "Y" ]; then
