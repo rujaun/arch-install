@@ -72,15 +72,15 @@ fi
 
 # Format partitions:
 echo -n "Formatting EFI partition:"
-mkfs.fat -F32 "${BOOT_PARTITION}"
+mkfs.fat -F -F32 "${BOOT_PARTITION}"
 
 if [ "$SWAP" = "Y" ]; then
 	echo -n "Making SWAP partition..."
-	mkswap "${SWAP_PARTITION}"
+	mkswap -f "${SWAP_PARTITION}"
 fi
 
 echo -n "Formatting root partition"
-mkfs.ext4 "${ROOT_PARTITION}"
+mkfs.ext4 -F "${ROOT_PARTITION}"
 
 # Update repos
 pacman -Syy --noconfirm
