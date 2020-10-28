@@ -662,3 +662,16 @@ reboot
 yay -S jabref
 yay -S zotero
 ```
+
+<!--
+Global Theme: Breeze
+Plasma Style: Breeze
+Application Style: Breeze
+Window Decorations: Breezemite
+Colors: Breeze Light
+Fonts General: Noto Sans
+Icons: Tela
+Login Screen (SDDM): Nordic
+Splash Screen: Dots ArchLinux Splashscreen
+-->
+
