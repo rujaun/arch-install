@@ -655,3 +655,10 @@ Reboot:
 ```
 reboot
 ```
+
+---
+### Install research paper managers
+```
+yay -S jabref
+yay -S zotero
+```
