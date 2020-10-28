@@ -29,9 +29,10 @@ ln -sf /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime
 
 echo -e "\nSetting locale..."
 echo en_ZA.UTF-8 UTF-8 > /etc/locale.gen
+locale-gen
 echo LANG=en_ZA.UTF-8 > /etc/locale.conf
 export LANG=en_ZA.UTF-8
-locale-gen
+
 
 echo -e "\nSetting hostname and configuring hosts..."
 echo "$HOST" > /etc/hostname
