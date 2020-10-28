@@ -619,6 +619,12 @@ sudo pacman -S packagekit packagekit-qt5 appstream appstream-qt
 ```
 
 ---
+### Install a few mathematics applications:
+```
+sudo pacman -S geogebra kmplot cantor kalgebra labplot
+```
+
+---
 ### Install xanmod linux kernel
 
 Install build dependencies:
