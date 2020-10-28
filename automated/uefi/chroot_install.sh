@@ -1,18 +1,16 @@
 #!/bin/bash
 
 DISK="$1"
-SWAP="$2"
-SWAP_SIZE="$3"
-BOOT_PARTITION="$4"
-ROOT_PASSWORD="$5"
-USERNAME="$6"
-USER_PASSWORD="$7"
-HOST="$8"
-GPU="$9"
-CPU="$10"
-BOOT_METHOD="$11"
+SWAP_SIZE="$2"
+BOOT_PARTITION="$3"
+USERNAME="$4"
+PASSWORD="$5"
+HOST="$6"
+GPU="$7"
+CPU="$8"
+BOOT_METHOD="$9"
 
-if [ "$SWAP" = "Y" ]; then
+if (( "$SWAP_SIZE" > 0 )); then
 	echo -n "Creating SWAP file:"
 	cd /
 	dd if=/dev/zero of=swapfile bs=1M count="$SWAP_SIZE" status=progress
@@ -41,8 +39,7 @@ echo "127.0.0.1			localhost" >> /etc/hosts
 echo "::1				localhost" >> /etc/hosts
 echo "127.0.1.1			$HOST" >> /etc/hosts
 
-echo -n "Setting root password..."
-echo "root:$ROOT_PASSWORD" | chpasswd
+echo "root:$PASSWORD" | chpasswd
 
 if [ "$BOOT_METHOD" = "EFI" ]; then
 	echo -n "Install GRUB-UEFI and configuring bootloader..."
@@ -64,7 +61,7 @@ fi
 echo -n "Setting up local user account and installing sudo..."
 pacman -S sudo --noconfirm
 useradd --create-home "$USERNAME"
-echo "$USERNAME:$USER_PASSWORD" | chpasswd
+echo "$USERNAME:$PASSWORD" | chpasswd
 usermod --append --groups wheel "$USERNAME"
 echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 

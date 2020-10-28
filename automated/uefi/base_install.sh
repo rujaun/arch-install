@@ -4,23 +4,12 @@ echo -n "Disk name:"
 
 read DISK
 
-echo -n "Do you require a swap file? (Y/N)"
-
-read SWAP
-SWAP_SIZE=0
-
-if [ "$SWAP" = "Y" ]; then
-	echo -n "SWAP file size in MiB:"
-	read SWAP_SIZE
-fi
+echo -n "SWAP file size in MiB: (0 for no swap)"
+read SWAP_SIZE
 
 echo -n "Hostname:"
 
 read HOST
-
-echo -n "ROOT Password:"
-
-read ROOT_PASSWORD
 
 echo -n "User name (lowercase):"
 
@@ -28,7 +17,7 @@ read USERNAME
 
 echo -n "User Password:"
 
-read USER_PASSWORD
+read PASSWORD
 
 echo -n "GPU (AMD | Intel | Nvidia):"
 
@@ -109,7 +98,7 @@ echo -n "Preparing chroot script handoff"
 cp ./chroot_install.sh /mnt/chroot_install.sh
 
 echo -n "Entering chroot"
-arch-chroot /mnt sh ./chroot_install.sh "$DISK" "$SWAP" "$SWAP_SIZE" "$BOOT_PARTITION" "$ROOT_PASSWORD" "$USERNAME" "$USER_PASSWORD" "$HOST" "$GPU" "$CPU" "$BOOT_METHOD"
+arch-chroot /mnt sh ./chroot_install.sh "$DISK" "$SWAP_SIZE" "$BOOT_PARTITION" "$USERNAME" "$PASSWORD" "$HOST" "$GPU" "$CPU" "$BOOT_METHOD"
 
 echo -n "Removing chroot_install.sh"
 rm /mnt/chroot_install.sh
