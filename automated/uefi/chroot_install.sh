@@ -24,11 +24,10 @@ if [ "$SWAP" = "Y" ]; then
 	echo "vm.swappiness=10" >> /etc/sysctl.d/99-swappiness.conf
 fi
 
-echo -n "Setting timezone..."
-timedatectl set-timezone Africa/Johannesburg
-
-echo -n "Updating hardware clock..."
+echo -n "Setting timezone and updating hardware clock..."
+hwclock --systohc
 timedatectl set-local-rtc 1 --adjust-system-clock
+ln -sf /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime
 
 echo -n "Setting locale..."
 echo en_ZA.UTF-8 UTF-8 > /etc/locale.gen
