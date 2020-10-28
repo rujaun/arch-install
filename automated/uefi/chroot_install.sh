@@ -52,21 +52,8 @@ systemctl enable NetworkManager.service
 echo -n "Enabling TRIM scheduling for SSDs..."
 sudo systemctl enable fstrim.timer
 
-echo -n "Install AUR (Arch User Repository) helper"
-sudo pacman -S git go --noconfirm
-
-cd ~/
-git clone https://aur.archlinux.org/yay-git.git
-cd yay-git
-makepkg -si
-cd ~/
-rm -rf ./yay-git
-
 echo -n "Installing Xorg and GPU drivers..."
-local multilib=`grep -n "\[multilib\]" /etc/pacman.conf | cut -f1 -d:`
-sed -i "$multilib s/^#//g" /etc/pacman.conf
-local multilib=$(( $multilib + 2 ))
-sed -i "${multilib}s/^#//g" /etc/pacman.conf
+sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 pacman -Syu --noconfirm
 
 echo -n "Installing xorg and dkms..."
