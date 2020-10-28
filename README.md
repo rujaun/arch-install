@@ -673,5 +673,6 @@ Fonts General: Noto Sans
 Icons: Tela
 Login Screen (SDDM): Nordic
 Splash Screen: Dots ArchLinux Splashscreen
+Konsole Color Profile: Dark One Nuanced
 -->
 
