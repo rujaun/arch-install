@@ -1,33 +1,33 @@
 #!/bin/bash
 
-echo -n "Disk name: "
+echo -e "\nDisk name: "
 
 read DISK
 
-echo -n "SWAP file size in MiB: (0 for no swap): "
+echo -e "\nSWAP file size in MiB: (0 for no swap): "
 read SWAP_SIZE
 
-echo -n "Hostname: "
+echo -e "\nHostname: "
 
 read HOST
 
-echo -n "User name (lowercase): "
+echo -e "\nUser name (lowercase): "
 
 read USERNAME
 
-echo -n "User Password: "
+echo -e "\nUser Password: "
 
 read PASSWORD
 
-echo -n "GPU (AMD | Intel | Nvidia): "
+echo -e "\nGPU (AMD | Intel | Nvidia): "
 
 read GPU
 
-echo -n "CPU (AMD | Intel): "
+echo -e "\nCPU (AMD | Intel): "
 
 read CPU
 
-echo -n "EFI or BIOS: "
+echo -e "\nEFI or BIOS: "
 read BOOT_METHOD
 
 if [ "$BOOT_METHOD" = "EFI" ]; then
@@ -36,22 +36,22 @@ if [ "$BOOT_METHOD" = "EFI" ]; then
 	BOOT_PARTITION="${DISK}1"
 	ROOT_PARTITION="${DISK}2"
 
-	echo -n "Creating GPT partition table:\n"
+	echo -e "\nCreating GPT partition table:\n"
 
 	parted --script "$DISK" mklabel gpt
 
-	echo -n "Creating UEFI Boot partition:\n"
+	echo -e "\nCreating UEFI Boot partition:\n"
 	parted --script "$DISK" mkpart "efi" fat32 2MiB 512MiB
 	parted --script /dev/sda set 1 esp on
 
-	echo -n "Creating root partition:\n"
+	echo -e "\nCreating root partition:\n"
 	parted --script "$DISK" mkpart "root" ext4 514MiB 100%
 
 	# Format partitions:
-	echo -n "Formatting EFI partition:"
+	echo -e "\nFormatting EFI partition:"
 	mkfs.fat -F32 "${BOOT_PARTITION}"
 
-	echo -n "Formatting root partition"
+	echo -e "\nFormatting root partition"
 	mkfs.ext4 -F "${ROOT_PARTITION}"
 fi
 
@@ -60,50 +60,50 @@ if [ "$BOOT_METHOD" = "BIOS" ]; then
 	DISK="/dev/${DISK}"
 	ROOT_PARTITION="${DISK}1"
 
-	echo -n "Creating MBR partition table:\n"
+	echo -e "\nCreating MBR partition table:\n"
 
 	parted --script "$DISK" mklabel msdos
 
-	echo -n "Creating root partition:\n"
+	echo -e "\nCreating root partition:\n"
 	parted --script "$DISK" mkpart primary ext4 2MiB 100%
 
 	parted --script /dev/sda set 1 boot on
 
 	# Format partitions:
-	echo -n "Formatting root partition"
+	echo -e "\nFormatting root partition"
 	mkfs.ext4 -F "${ROOT_PARTITION}"
 fi
 
 # Update repos
 pacman -Syy --noconfirm
 
-echo -n "Installing and running reflector to update mirrors..."
+echo -e "\nInstalling and running reflector to update mirrors..."
 pacman -S reflector --noconfirm
 reflector -c "ZA" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 
 # Mount root partition
-echo -n "Mounting root partition..."
+echo -e "\nMounting root partition..."
 mount "${ROOT_PARTITION}" /mnt
 
 # Install base system
-echo -n "Installing base system..."
+echo -e "\nInstalling base system..."
 pacstrap /mnt base base-devel linux linux-firmware linux-headers util-linux amd-ucode vim
 
 # Generate fstab
-echo -n "Generating fstab"
+echo -e "\nGenerating fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
 
 #Preparing chroot script handoff
-echo -n "Preparing chroot script handoff"
+echo -e "\nPreparing chroot script handoff"
 cp ./chroot_install.sh /mnt/chroot_install.sh
 
-echo -n "Entering chroot"
+echo -e "\nEntering chroot"
 arch-chroot /mnt sh ./chroot_install.sh "$DISK" "$SWAP_SIZE" "$BOOT_PARTITION" "$USERNAME" "$PASSWORD" "$HOST" "$GPU" "$CPU" "$BOOT_METHOD"
 
-echo -n "Removing chroot_install.sh"
+echo -e "\nRemoving chroot_install.sh"
 rm /mnt/chroot_install.sh
 
-echo -n "Unmounting root partition and reboot"
+echo -e "\nUnmounting root partition and reboot"
 umount -l /mnt
 
 read -p "Install finished - Press enter to continue..."
