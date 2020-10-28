@@ -20,6 +20,8 @@ if (( "$SWAP_SIZE" > 0 )); then
 	echo "/swapfile		none	swap defaults 0 0" >> /etc/fstab
 	touch /etc/sysctl.d/99-swappiness.conf
 	echo "vm.swappiness=10" >> /etc/sysctl.d/99-swappiness.conf
+else
+	echo "vm.swappiness=0" >> /etc/sysctl.d/99-swappiness.conf
 fi
 
 echo -e "\nSetting timezone and updating hardware clock..."
