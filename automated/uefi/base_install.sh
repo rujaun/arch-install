@@ -49,25 +49,25 @@ if [ "$SWAP" = "Y" ]; then
 	ROOT_PARTITION="${DISK}3"
 fi
 
-echo -n "Creating GPT partition table"
+echo -n "Creating GPT partition table:\n"
 
 parted --script "$DISK" mklabel gpt
 
-echo -n "Creating UEFI Boot partition:"
+echo -n "Creating UEFI Boot partition:\n"
 parted --script "$DISK" mkpart "efi" fat32 2MiB 512MiB
 parted --script set 1 esp on
 
 
 if [ "$SWAP" = "Y" ]; then
-	echo -n "Creating SWAP partition:"
+	echo -n "Creating SWAP partition:\n"
 	parted --script "$DISK" mkpart "swap" linux-swap 514MiB 8706MiB
 fi
 
-echo -n "Creating root partition:"
+echo -n "Creating root partition:\n"
 if [ "$SWAP" = "Y" ]; then
-	parted -script "$DISK" mkpart "root" ext4 8708MiB 100%
+	parted --script "$DISK" mkpart "root" ext4 8708MiB 100%
 else
-	parted -script "$DISK" mkpart "root" ext4 514MiB 100%
+	parted --script "$DISK" mkpart "root" ext4 514MiB 100%
 fi
 
 # Format partitions:
