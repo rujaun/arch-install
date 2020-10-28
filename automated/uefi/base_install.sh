@@ -103,10 +103,10 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 #Preparing chroot script handoff
 echo -n "Preparing chroot script handoff"
-cp ./chroot_install.sh /mnt
+cp ./chroot_install.sh /mnt/chroot_install.sh
 
 echo -n "Entering chroot"
-arch-chroot /mnt ./chroot_install.sh "$DISK" "$SWAP" "$BOOT_PARTITION" "$ROOT_PASSWORD" "$USERNAME" "$USER_PASSWORD" "$HOST" "$GPU" "$CPU"
+arch-chroot /mnt sh ./chroot_install.sh "$DISK" "$SWAP" "$BOOT_PARTITION" "$ROOT_PASSWORD" "$USERNAME" "$USER_PASSWORD" "$HOST" "$GPU" "$CPU"
 
 #echo -n "Removing chroot_install.sh"
 #rm /mnt/chroot_install.sh
