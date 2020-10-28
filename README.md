@@ -382,15 +382,6 @@ chmod +x ~/.config/autostart-scripts/force-composition-pipeline.sh
 *Credit to: [vitkin](https://unix.stackexchange.com/users/316930/vitkin) - [Source](https://unix.stackexchange.com/questions/510757/how-to-automatically-force-full-composition-pipeline-for-nvidia-gpu-driver#answer-550695)*
 
 ---
-### Install Realtek 8125B 2.5G LAN controller driver
-**NB: This is not needed anymore as kernel 5.9 includes the driver**
-
-Build and install the Realtek driver:
-```
-cd r8125
-sudo sh ./autorun.sh
-```
----
 ### Install support for NTFS and exfat drives / partitions
 ```
 sudo pacman -S ntfs-3g exfat-utils
