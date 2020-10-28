@@ -115,5 +115,3 @@ echo -n "Unmounting root partition and reboot"
 umount -R /mnt
 
 read -p "Install finished - Press enter to continue..."
-
-systemctl shutdown
