@@ -126,6 +126,10 @@ fi
 echo -e "\nInstalling Iwd..."
 pacman -S iwd --noconfirm
 systemctl enable iwd.service
+mkdir -p /etc/iwd/main.conf
+touch /etc/iwd/main.conf
+echo "[General]" >> /etc/iwd/main.conf
+echo "EnableNetworkConfiguration=true" >> /etc/iwd/main.conf
 
 echo -e "\nInstalling Qtile window manager..."
 pacman -S qtile --noconfirm
