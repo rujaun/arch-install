@@ -45,7 +45,7 @@ echo "127.0.1.1			$HOST" >> /etc/hosts
 echo "root:$PASSWORD" | chpasswd
 
 if [ "$BOOT_METHOD" = "EFI" ]; then
-	echo -e "\nInstall GRUB-UEFI and configuring bootloader..."
+	echo -e "\nInstalling GRUB-UEFI and configuring bootloader..."
 	pacman -S grub efibootmgr --noconfirm
 	mkdir /boot/efi
 	mount "$BOOT_PARTITION" /boot/efi
@@ -55,7 +55,7 @@ fi
 
 
 if [ "$BOOT_METHOD" = "BIOS" ]; then
-	echo -e "\nInstall GRUB-BIOS and configuring bootloader..."
+	echo -e "\nInstalling GRUB-BIOS and configuring bootloader on GPT partition table..."
 	pacman -S grub --noconfirm
 	grub-install --target=i386-pc --recheck "$DISK"
 	grub-mkconfig -o /boot/grub/grub.cfg

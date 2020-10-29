@@ -58,16 +58,18 @@ fi
 if [ "$BOOT_METHOD" = "BIOS" ]; then
 	# Create MBR Partitions:
 	DISK="/dev/${DISK}"
-	ROOT_PARTITION="${DISK}1"
+	BOOT_PARTITION="${DISK}1"
+	ROOT_PARTITION="${DISK}2"
 
-	echo -e "\nCreating MBR partition table:\n"
+	echo -e "\nCreating GPT for BIOS partition table:\n"
 
-	parted --script "$DISK" mklabel msdos
+	parted --script "$DISK" mklabel gpt
 
 	echo -e "\nCreating root partition:\n"
-	parted --script "$DISK" mkpart primary ext4 2MiB 100%
-
-	parted --script /dev/sda set 1 boot on
+	parted --script "$DISK" mkpart "bios" non-fs 2MiB 4MiB
+	parted --script /dev/sda set 1 bios_grub on
+	
+	parted --script "$DISK" mkpart "root" ext4 6MiB 100%
 
 	# Format partitions:
 	echo -e "\nFormatting root partition"
