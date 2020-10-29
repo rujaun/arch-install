@@ -30,9 +30,9 @@ timedatectl set-local-rtc 1 --adjust-system-clock
 ln -sf /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime
 
 echo -e "\nSetting locale..."
-echo en_ZA.UTF-8 UTF-8 > /etc/locale.gen
+echo "en_ZA.UTF-8 UTF-8" > /etc/locale.gen
 locale-gen
-echo LANG=en_ZA.UTF-8 > /etc/locale.conf
+echo "LANG=en_ZA.UTF-8" > /etc/locale.conf
 export LANG=en_ZA.UTF-8
 
 

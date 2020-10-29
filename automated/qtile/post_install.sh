@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo -e "\n Setting system clock..."
+hwclock --systohc
+timedatectl set-local-rtc 1 --adjust-system-clock
+
 echo -e "\nUpdating system..."
 sudo pacman -Syu --noconfirm
 
