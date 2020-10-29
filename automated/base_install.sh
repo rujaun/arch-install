@@ -89,7 +89,7 @@ mount "${ROOT_PARTITION}" /mnt
 
 # Install base system
 echo -e "\nInstalling base system..."
-pacstrap /mnt base base-devel linux linux-firmware linux-headers util-linux vim htop
+pacstrap /mnt base base-devel linux linux-firmware linux-headers util-linux vim htop git curl wget
 
 # Generate fstab
 echo -e "\nGenerating fstab"
