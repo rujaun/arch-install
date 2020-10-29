@@ -123,5 +123,9 @@ if [ "$CPU" = "Intel" ]; then
 	pacman -S intel-ucode --noconfirm
 fi
 
+echo -e "\nInstalling Iwd..."
+pacman -S iwd --noconfirm
+systemctl enable iwd.service
+
 echo -e "\nInstalling Qtile window manager..."
 pacman -S qtile --noconfirm

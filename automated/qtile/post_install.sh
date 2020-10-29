@@ -33,3 +33,27 @@ fi
 echo -e "\nCopying qtile configuration..."
 mkdir -p ~/.config/qtile/
 cp ./config.py ~/.config/qtile/config.py
+
+echo -e "\nInstall Yay - AUR (Arch User Repository) helper? (Y/N): "
+
+read AURYAY
+
+if [ "$AURYAY" = "Y" ]; then
+	echo -e "\nInstalling Yay - AUR (Arch User Repository) helper"
+	sudo pacman -S git go --noconfirm
+
+	git clone https://aur.archlinux.org/yay-git.git
+	cd yay-git
+	makepkg -si
+	cd ..
+	rm -rf ./yay-git
+fi
+
+echo -e "\nInstall b43-firmware ?: "
+
+read B43
+
+if [ "$B43" = "Y" ]; then
+	echo -e "\nInstalling b43-firmware"
+	yay -S b43-firmware --noconfirm
+fi
