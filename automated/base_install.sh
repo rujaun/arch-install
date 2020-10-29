@@ -105,7 +105,7 @@ arch-chroot /mnt sh ./chroot_install.sh "$DISK" "$SWAP_SIZE" "$BOOT_PARTITION" "
 echo -e "\nRemoving chroot_install.sh"
 rm /mnt/chroot_install.sh
 
-echo -e "\nUnmounting root partition and reboot"
+echo -e "\nUnmounting root partition"
 umount -l /mnt
 
 read -p "Install finished - Press enter to continue..."
