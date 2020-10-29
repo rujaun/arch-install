@@ -114,7 +114,7 @@ pacman -S python python-pip --noconfirm
 echo -e "\nInstalling support for NTFS and exfat drives / partitions..."
 pacman -S ntfs-3g exfat-utils --noconfirm
 
-echo -e"Enabling SDDM..."
+echo -e "Enabling SDDM..."
 systemctl enable sddm.service
 
 if [ "$CPU" = "AMD" ]; then
