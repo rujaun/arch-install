@@ -2,8 +2,8 @@
 
 echo -e "\n Setting system clock..."
 hwclock --systohc
+timedatectl set-ntp true
 timedatectl set-local-rtc 1 --adjust-system-clock
-timedatectl set-timezone "$(curl --fail https://ipapi.co/timezone)"
 
 echo -e "\nUpdating system..."
 sudo pacman -Syu --noconfirm

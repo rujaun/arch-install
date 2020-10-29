@@ -25,8 +25,6 @@ else
 fi
 
 echo -e "\nSetting timezone and updating hardware clock..."
-hwclock --systohc
-timedatectl set-local-rtc 1 --adjust-system-clock
 ln -sf /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime
 
 echo -e "\nSetting locale..."
