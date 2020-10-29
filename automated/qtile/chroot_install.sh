@@ -130,6 +130,9 @@ mkdir -p /etc/iwd/main.conf
 touch /etc/iwd/main.conf
 echo "[General]" >> /etc/iwd/main.conf
 echo "EnableNetworkConfiguration=true" >> /etc/iwd/main.conf
+echo "[Network]" >> /etc/iwd/main.conf
+echo "NameResolvingService=systemd" >> /etc/iwd/main.conf
+systemctl enable systemd-resolved.service
 
 echo -e "\nInstalling Qtile window manager..."
 pacman -S qtile --noconfirm
