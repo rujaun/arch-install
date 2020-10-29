@@ -103,6 +103,7 @@ pacman -S kdegraphics-thumbnailers kio-extras --noconfirm
 pacman -S bzip2 gzip lzip xz p7zip unrar zip unzip --noconfirm
 pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc ark persepolis transmission-qt firefox chromium ktouch --noconfirm
 pacman -S packagekit packagekit-qt5 appstream appstream-qt --noconfirm
+pacman -S kwallet ksshaskpass kwalletmanager kwallet-pam signon-kwallet-extension --noconfirm
 
 echo -e "\nInstalling vim-plug..."
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \

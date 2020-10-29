@@ -366,6 +366,8 @@ sudo chown new_user:wheel /mnt/sdb1
 ---
 ### Fix screen tearing on Plasma (Nvidia)
 
+**NB: This now resides in config repo**
+
 Under `System Settings` -> `Display and Monitor` -> `Compositor`:
 `Tearing prevention("vsync")` set to `Never`
 
@@ -507,6 +509,9 @@ yay -S kitematic
 
 ---
 ### Install credential manager for SSH key passphrases
+
+**NB: This now resides in config repo**
+
 Install required packages:
 ```
 sudo pacman -S kwallet ksshaskpass kwalletmanager kwallet-pam signon-kwallet-extension
@@ -570,6 +575,8 @@ Reboot.
 
 ---
 ### Install fonts
+
+**NB: This now resides in config repo**
 
 Make new fonts directory:
 ```
