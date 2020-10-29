@@ -105,10 +105,6 @@ pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc a
 pacman -S packagekit packagekit-qt5 appstream appstream-qt --noconfirm
 pacman -S kwallet ksshaskpass kwalletmanager kwallet-pam signon-kwallet-extension --noconfirm
 
-echo -e "\nInstalling vim-plug..."
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
 echo -e "\nInstalling python..."
 pacman -S python python-pip --noconfirm
 
