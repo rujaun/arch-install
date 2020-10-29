@@ -16,12 +16,12 @@ echo -e "\nAdding startx to bash_profile"
 		echo -e "\n$FILE exists."
 		
 		echo -e "\nWriting to bash_profile"
-		echo >> "[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vt1" > ~/.bash_profile
+		echo "[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vt1" > ~/.bash_profile
 	else
 		echo -e "\nCreating to bash_profile"
 		touch ~/.bash_profile
-		echo >> "[[ -f ~/.bashrc ]] && . ~/.bashrc" > ~/.bash_profile
+		echo "[[ -f ~/.bashrc ]] && . ~/.bashrc" > ~/.bash_profile
 
 		echo -e "\nWriting to bash_profile"
-		echo >> "[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vt1" > ~/.bash_profile
+		echo "[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vt1" >> ~/.bash_profile
 	fi
