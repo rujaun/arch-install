@@ -97,22 +97,11 @@ if [ "$GPU" = "Nvidia" ]; then
 	pacman -S nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader --noconfirm
 fi
 
-echo -e "\nInstalling Plasma desktop environment..."
-pacman -S plasma plasma-wayland-session --noconfirm
-pacman -S kdegraphics-thumbnailers kio-extras --noconfirm
-pacman -S bzip2 gzip lzip xz p7zip unrar zip unzip --noconfirm
-pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc ark persepolis transmission-qt firefox chromium ktouch --noconfirm
-pacman -S packagekit packagekit-qt5 appstream appstream-qt --noconfirm
-pacman -S kwallet ksshaskpass kwalletmanager kwallet-pam signon-kwallet-extension --noconfirm
-
 echo -e "\nInstalling python..."
 pacman -S python python-pip --noconfirm
 
 echo -e "\nInstalling support for NTFS and exfat drives / partitions..."
 pacman -S ntfs-3g exfat-utils --noconfirm
-
-echo -e "Enabling SDDM..."
-systemctl enable sddm.service
 
 if [ "$CPU" = "AMD" ]; then
 	echo -e "\nInstalling AMD CPU microcode"
@@ -123,3 +112,15 @@ if [ "$CPU" = "Intel" ]; then
 	echo -e "\nInstalling Intel CPU microcode"
 	pacman -S intel-ucode --noconfirm
 fi
+
+echo -e "\nInstalling Plasma desktop environment..."
+pacman -S plasma plasma-wayland-session --noconfirm
+pacman -S kdegraphics-thumbnailers kio-extras --noconfirm
+pacman -S bzip2 gzip lzip xz p7zip unrar zip unzip --noconfirm
+pacman -S konsole kate dolphin partitionmanager kcolorchooser krita okular vlc ark persepolis transmission-qt firefox chromium ktouch --noconfirm
+pacman -S packagekit packagekit-qt5 appstream appstream-qt --noconfirm
+pacman -S kwallet ksshaskpass kwalletmanager kwallet-pam signon-kwallet-extension --noconfirm
+
+
+echo -e "Enabling SDDM..."
+systemctl enable sddm.service
