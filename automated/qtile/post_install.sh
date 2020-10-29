@@ -27,4 +27,5 @@ else
 fi
 
 echo -e "\nCopying qtile configuration..."
+mkdir -p ~/.config/qtile/
 cp ./config.py ~/.config/qtile/config.py
