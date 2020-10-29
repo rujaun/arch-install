@@ -66,9 +66,9 @@ if [ "$BOOT_METHOD" = "BIOS" ]; then
 	parted --script "$DISK" mklabel gpt
 
 	echo -e "\nCreating root partition:\n"
-	parted --script "$DISK" mkpart "bios" non-fs 2MiB 4MiB
+	parted --script "$DISK" mkpart "bios" 2MiB 4MiB
 	parted --script /dev/sda set 1 bios_grub on
-	
+
 	parted --script "$DISK" mkpart "root" ext4 6MiB 100%
 
 	# Format partitions:
