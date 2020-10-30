@@ -145,4 +145,4 @@ pacman -S kwallet ksshaskpass kwalletmanager kwallet-pam signon-kwallet-extensio
 
 
 echo -e "Enabling SDDM..."
-systemctl enable sddm.service#!/bin/bash
+systemctl enable sddm.service
