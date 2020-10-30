@@ -112,7 +112,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 #Preparing chroot script handoff
 echo -e "\nPreparing chroot script handoff"
 cp ./grub /mnt/grub.lol
-cp ./grub /mnt/mkinitcpio.conf.lol
+cp ./mkinitcpio.conf /mnt/mkinitcpio.conf.lol
 cp ./chroot_install.sh /mnt/chroot_install.sh
 
 echo -e "\nEntering chroot"
