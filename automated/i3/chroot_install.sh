@@ -82,7 +82,7 @@ chmod 600 /root/secrets/crypto_keyfile.bin
 
 while true; do
     echo "Enter your disk encryption passphrase :"
-    cryptsetup -v luksAddKey -i 1 /dev/${DISK}2 /root/secrets/crypto_keyfile.bin
+    cryptsetup -v luksAddKey -i 1 ${DISK}2 /root/secrets/crypto_keyfile.bin
 
     read -r -p "Do you need to try again? [y/N]" response
     if [[ "$response" =~ ^([Yy])+$ ]]; then
