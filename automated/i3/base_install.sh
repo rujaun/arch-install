@@ -70,17 +70,17 @@ if [ "$BOOT_METHOD" = "BIOS" ]; then
 fi
 
 
-cryptsetup --verbose --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-random luksFormat /dev/sda2 "${ROOT_PARTITION}"
+cryptsetup --verbose --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-random luksFormat "${ROOT_PARTITION}"
 cryptsetup open --type luks "${ROOT_PARTITION}" cryptroot
 echo -e "\nFormatting root partition"
 mkfs.ext4 /dev/mapper/cryptroot
 
 # Update repos
-#pacman -Syy --noconfirm
+pacman -Syy --noconfirm
 
-#echo -e "\nInstalling and running reflector to update mirrors..."
-#pacman -S reflector --noconfirm
-#reflector -c "ZA" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
+echo -e "\nInstalling and running reflector to update mirrors..."
+pacman -S reflector --noconfirm
+reflector -c "ZA" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 
 # Mount root partition
 echo -e "\nMounting root partition..."
