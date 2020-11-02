@@ -76,11 +76,11 @@ echo -e "\nFormatting root partition"
 mkfs.ext4 /dev/mapper/cryptroot
 
 # Update repos
-pacman -Syy --noconfirm
+#pacman -Syy --noconfirm
 
-echo -e "\nInstalling and running reflector to update mirrors..."
-pacman -S reflector --noconfirm
-reflector -c "ZA" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
+#echo -e "\nInstalling and running reflector to update mirrors..."
+#pacman -S reflector --noconfirm
+#reflector -c "ZA" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 
 # Mount root partition
 echo -e "\nMounting root partition..."
