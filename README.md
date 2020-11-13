@@ -510,8 +510,6 @@ yay -S kitematic
 ---
 ### Install credential manager for SSH key passphrases
 
-**NB: This now resides in config repo**
-
 Install required packages:
 ```
 sudo pacman -S kwallet ksshaskpass kwalletmanager kwallet-pam signon-kwallet-extension
