@@ -26,8 +26,8 @@ parted --script /dev/sda mklabel gpt
 
 Partition Layout:
 ```
-EFI = 512MiB Hex Code = ef00
-BOOT = 1024MiB Hex Code = 8300
+EFI = +512MiB Hex Code = ef00
+BOOT = +1024MiB Hex Code = 8300
 LVM = Rest of the space available. Hex Code = 8e00
 ```
 
@@ -35,6 +35,8 @@ Partition Disks:
 ```
 gdisk /dev/sda
 ```
+
+Create partition: `n`
 
 Review partitions: `p`
 
