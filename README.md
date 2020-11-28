@@ -19,74 +19,75 @@ List all disks:
 fdisk -l
 ```
 
-Select first disk:
+Write new GPT parition label:
 ```
-fdisk /dev/sda
-```
-Create new GPT partition label:
-```
-g
+parted --script /dev/sda mklabel gpt
 ```
 
-Create UEFI ESP Partition:
-```
-n
+Partition Layout:
+EFI = `512MiB` Hex Code = `ef00`
+BOOT = `1024MiB` Hex Code = `8300`
+LVM = Rest of the space available. Hex Code = `8e00`
 
-+512M
+Partition Disks:
 ```
-
-Change type to EFI Filesystem:
-```
-t
-1
+gdisk /dev/sda
 ```
 
-Create root partition (Use all available space left):
-```
-n
-```
+Review partitions: `p`
+Write partitions: `w`
+Reboot so that the kernel reads new partition structure.
 
-Write changes to disk:
+Zero out the partitions:
 ```
-w
-```
-
-Select second disk:
-```
-fdisk /dev/sdb
-```
-
-Create new GPT partition label:
-```
-g
-```
-
-Create partition (Use all available space):
-```
-n
-```
-
-Write changes to disk:
-```
-w
+cat /dev/zero > /dev/sda1
+cat /dev/zero > /dev/sda2
+cat /dev/zero > /dev/sda3
 ```
 
 ---
-## Create filesystems
+## Create filesystems for EFI and boot parititons
 
 Create UEFI filesystem:
 ```
-mkfs.fat -F32 /dev/sda1
+mkfs.fat -F 32 /dev/sda1
 ```
 
-Create ext4 root filesystem:
+Create BOOT filesystem:
 ```
-mkfs.ext4 /dev/sda2
+mkfs.ext2 /dev/sda2
 ```
 
-Create second disk ext4 filesystem:
+Encrypt and open LVM partiton:
 ```
-mkfs.ext4 /dev/sdb1
+cryptsetup -c aes-xts-plain64 -h sha512 -s 512 --use-random luksFormat /dev/sda3
+
+cryptsetup luksOpen /dev/sda3 encrypted
+```
+
+Create encrypted LVM partitions:
+```
+pvcreate /dev/mapper/encrypted
+vgcreate Arch /dev/mapper/encrypted
+
+lvcreate -L +32768M Arch -n swap
+lvcreate -l +100%FREE Arch -n root
+```
+
+Create filesystems on encrypted partitons:
+```
+mkswap /dev/mapper/Arch-swap
+mkfs.ext4 /dev/mapper/Arch-root
+```
+
+Mount the new partitions:
+```
+mount /dev/mapper/Arch-root /mnt
+swapon /dev/mapper/Arch-swap
+mkdir /mnt/boot
+mount /dev/sda2 /mnt/boot
+mkdir /mnt/boot/efi
+mount /dev/sda1 /mnt/boot/efi
 ```
 
 ---
@@ -109,19 +110,14 @@ pacman -S reflector
 
 Get best performant mirrors and update mirrorlist:
 ```
-reflector -c "ZA" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
+reflector -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 ```
 ---
 ### Arch Linux installation
 
-Mount root partition:
-```
-mount /dev/sda2 /mnt
-```
-
 Install base system:
 ```
-pacstrap /mnt base base-devel linux linux-firmware linux-headers util-linux amd-ucode vim htop
+pacstrap /mnt base base-devel grub efibootmgr linux linux-headers linux-firmware util-linux lvm2 intel-ucode vim htop git
 ```
 ---
 ### Configure Arch Linux installation
@@ -138,13 +134,8 @@ arch-chroot /mnt
 
 Set the timezone:
 ```
-timedatectl set-timezone Africa/Johannesburg
-```
-OR
-```
 ln -sf /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime
 hwclock --systohc
-timedatectl set-local-rtc 1 --adjust-system-clock
 ```
 
 Set the locale:
@@ -157,9 +148,9 @@ en_ZA.UTF-8
 
 Generate the locale config:
 ```
-locale-gen
 echo LANG=en_ZA.UTF-8 > /etc/locale.conf
 export LANG=en_ZA.UTF-8
+locale-gen
 ```
 
 Set the hostname:
@@ -181,32 +172,58 @@ Set the root password:
 ```
 passwd
 ```
+
 ---
-### Install bootloader
-
-Install GRUB and efibootmgr:
+### Install Plymouth
 ```
-pacman -S grub efibootmgr
-```
-
-Create EFI boot mountpoint directory:
-```
-mkdir /boot/efi
+git clone https://aur.archlinux.org/plymouth.git
+cd plymouth
+makepkg -si
 ```
 
-Mount the ESP partition:
+---
+### Configure mkinitcpio with correct hooks
+
+Edit `/etc/mkinitcpio.conf` and change the HOOKS statement to:
+
 ```
-mount /dev/sda1 /boot/efi
+HOOKS=(base udev plymouth autodetect modconf block keymap plymouth-encrypt lvm2 resume filesystems keyboard fsck)
 ```
+
+Generate your initrd image:
+```
+mkinitcpio -p linux
+```
+
+---
+### Install Bootloader
 
 Install GRUB:
 ```
-grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArchLinux
 ```
+
+Edit `/etc/default/grub` and change:
+```
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash loglevel=3 rd.udev.log_priority=3 vt.global_cursor_default=0"
+GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:encrypted resume=/dev/mapper/Arch-swap"
+``` 
 
 Create GRUB config:
 ```
 grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+Select Plymouth theme:
+```
+plymouth-set-default-theme -R spinfinity
+```
+
+Unmount all partitions and reboot:
+```
+umount -R /mnt
+swapoff -a
+reboot
 ```
 
 ---
@@ -327,10 +344,16 @@ Install a few applications:
 sudo pacman -S konsole notepadqq dolphin partitionmanager kcolorchooser krita okular vlc ark persepolis transmission-qt firefox chromium ktouch foliate
 ```
 
-Enable SDDM:
+Enable SDDM with Plymouth:
+```
+sudo systemctl enable sddm-plymouth.service
+```
+
+Enable SDDM without Plymouth:
 ```
 sudo systemctl enable sddm.service
 ```
+
 ---
 ### Auto mount second disk with Fstab
 Create mount point directory:
