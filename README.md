@@ -26,7 +26,9 @@ parted --script /dev/sda mklabel gpt
 
 Partition Layout:
 EFI = `512MiB` Hex Code = `ef00`
+
 BOOT = `1024MiB` Hex Code = `8300`
+
 LVM = Rest of the space available. Hex Code = `8e00`
 
 Partition Disks:
@@ -35,7 +37,9 @@ gdisk /dev/sda
 ```
 
 Review partitions: `p`
+
 Write partitions: `w`
+
 Reboot so that the kernel reads new partition structure.
 
 Zero out the partitions:
@@ -182,7 +186,7 @@ makepkg -si
 ```
 
 ---
-### Configure mkinitcpio with correct hooks
+### Configure mkinitcpio with correct hooks for decryption
 
 Edit `/etc/mkinitcpio.conf` and change the HOOKS statement to:
 
