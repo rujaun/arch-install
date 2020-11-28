@@ -434,10 +434,9 @@ ssh-add ~/.ssh/id_rsa
 ```
 ---
 ### Install development tools from the AUR (Arch User Repository)
-Install Sublime Text 3 and Visual Studio Code
+Install Visual Studio Code (vscodium)
 ```
-yay -S visual-studio-code-bin
-yay -S sublime-text-3
+yay -S vscodium-bin
 ```
 
 Install powerline patched programming fonts:
